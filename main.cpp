@@ -19,8 +19,26 @@ int main() {
 
     if (p.Test() == 0) {
 
-        p.Recording();
+        int input;
 
+        cout << "p : preview the video" << endl;
+        cout << "r : start recording" << endl;
+        cout << "e : exit the program" << endl;
+
+        while ((input = getchar()) != 'e') {
+            switch (input) {
+                case 'p':
+                    p.Preview();
+                    break;
+                case 'r':
+                    p.Recording();
+                    break;
+                default:
+                    cout << "invalid input" << endl;
+            }
+        }
+
+        cout << "Exit" << endl;
     } else {
         cout << "Pixy camera error, exit";
         exit(-1);

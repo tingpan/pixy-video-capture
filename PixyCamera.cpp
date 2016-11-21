@@ -105,7 +105,6 @@ int PixyCamera::Recording() {
 }
 
 
-
 int PixyCamera::TestInit() {
 
     int return_value;
@@ -231,11 +230,36 @@ int PixyCamera::writeVideo(VideoWriter outputVideo) {
         Mat pixy_image = GetOneFrame();
 
         outputVideo << pixy_image;
-
     }
 
     outputVideo.release();
     cout << "Finished writing" << endl;
     return 0;
+}
+
+int PixyCamera::Preview() {
+
+    namedWindow("Recording", WINDOW_NORMAL);
+
+    for(long i = 0;; i++)
+    {
+        if (i % 10 == 0) cout << i << " frames outputed" << recording_flag << endl;
+
+        Mat pixy_image = GetOneFrame();
+
+        imshow("Recording", pixy_image);
+
+        if (waitKey(30) == 27 ) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+        {
+            cout << "esc key is pressed by user" << endl;
+
+            break;
+        }
+    }
+
+    cout << "Finished Preview" << endl;
+    return 0;
+
+
 }
 

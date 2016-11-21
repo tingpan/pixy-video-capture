@@ -23,6 +23,7 @@ public:
     int Test();
     int Stop();
     int Recording();
+    int Preview();
     void StopRecording();
     Mat GetOneFrame();
 
