@@ -35,6 +35,7 @@ int main() {
                     break;
                 default:
                     cout << FRED("invalid input") << endl;
+                    showMenu();
 
             }
         }
