@@ -12,9 +12,11 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include "pixy.h"
+#include <chrono>
 
 using namespace cv;
 using namespace std;
+using namespace std::chrono;
 
 int PixyCamera::Test() {
 
@@ -72,12 +74,10 @@ int PixyCamera::Recording() {
 
     Mat pixy_image = GetOneFrame();
 
-    namedWindow("Image", CV_WINDOW_NORMAL);
+    namedWindow("Image", WINDOW_NORMAL);
     imshow("Image", pixy_image);
 
-    cout << "ss";
     return 0;
-
 }
 
 int PixyCamera::TestInit() {
@@ -173,9 +173,17 @@ Mat PixyCamera::GetOneFrame() {
         pixy_error(return_value);
     }
 
-    return renderBA81(renderflags, width, height, numPixels, pixels);
-}
+    Mat raw_frame = renderBA81(renderflags, width, height, numPixels, pixels);
 
+    milliseconds ms = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
+    string s = to_string(ms.count());
+
+    putText(raw_frame, s, cvPoint(5,190),
+            FONT_HERSHEY_SIMPLEX, 0.3, cvScalar(255,255,255), 1, CV_AA);
+
+    return raw_frame;
+
+}
 
 Mat PixyCamera::renderBA81(int8_t renderFlags, uint16_t width, uint16_t height, uint32_t frameLen, uint8_t *frame) {
 
@@ -185,10 +193,10 @@ Mat PixyCamera::renderBA81(int8_t renderFlags, uint16_t width, uint16_t height, 
 
     frame += width;
 
-    uchar data[3*((height-2)*(width-2))];
+    uchar data[3 * ((height-2) * (width-2)) ];
 
     uint m = 0;
-    for (y = 1; y < height-1; y++)
+    for (y = 1; y < height - 1; y++)
     {
         frame++;
         for (x = 1; x < width - 1; x++, frame++)
@@ -203,7 +211,6 @@ Mat PixyCamera::renderBA81(int8_t renderFlags, uint16_t width, uint16_t height, 
     }
 
     imageRGB = Mat(height - 2,width -2, CV_8UC3, data);
-
     return imageRGB;
 }
 

@@ -27,11 +27,7 @@ int main() {
 
     if (p.Test() == 0) {
 
-        Mat pixy_image = p.GetOneFrame();
-
-        namedWindow("Image", WINDOW_NORMAL);
-        imshow("Image", pixy_image);
-
+        p.Recording();
         waitKey(0);
 
     } else {
