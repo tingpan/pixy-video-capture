@@ -4,9 +4,10 @@
 #include <string>
 #include <iostream>
 #include "PixyCamera.h"
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/opencv.hpp>
 #include "pixy.h"
+#include <thread>
+#include <sys/stat.h>
+#include "colors.h"
 
 using namespace cv;
 using namespace std;
@@ -62,47 +63,48 @@ int PixyCamera::Stop() {
 
 int PixyCamera::Recording() {
 
+    recording_flag = true;
     pixy_rcs_set_position(1, 900);
     pixy_rcs_set_position(0, 500);
-    namedWindow("Image", WINDOW_NORMAL);
+    const String OUTPUT_FOLDER = "./output/";
+    const String TIME = currentDateTime();
+    const String suffix = ".avi";
+
+    int fps = floor(getFPS());
+
+    mkdir(OUTPUT_FOLDER.c_str(), 0777);
+    mkdir((OUTPUT_FOLDER + TIME).c_str(), 0777);
+    chdir((OUTPUT_FOLDER + TIME).c_str());
 
     VideoWriter outputVideo;                                        // Open the output
     milliseconds ms = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
-    const String NAME =  "./output/" + to_string(ms.count()) + ".avi";
+    const String NAME =  to_string(ms.count()) + suffix;
+
     Size S = Size(318, 198);
 
-    outputVideo.open(NAME, CV_FOURCC('D','I','V','X'), 20, S, true);
+    outputVideo.open(NAME, CV_FOURCC('D','I','V','X'), fps, S, true);
 
     if (!outputVideo.isOpened())
     {
-        cout  << "Could not open the output video for write: ";
+        cout  << "Could not open the output video for write: " << endl;
         return -1;
     }
 
-    cout << "Input frame resolution: Width=" << S.width << "  Height=" << S.height;
+    cout << "Video: " << NAME <<", Input frame resolution: Width=" << S.width << "  Height=" << S.height << endl;
+    std::thread t(&PixyCamera::writeVideo, this, outputVideo);
 
-    for(;;) //Show the image captured in the window and repeat
-    {
+    cout << BOLD(FBLU("Press any q to stop recording")) << endl;
 
-        Mat pixy_image = GetOneFrame();
+    while(getchar() != 'q');
 
-        //outputVideo.write(res); //save or
+    StopRecording();
+    t.join();
 
-        outputVideo << pixy_image;
-
-        imshow("Image", pixy_image);
-
-        if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
-        {
-            cout << "esc key is pressed by user" << endl;
-
-            break;
-        }
-    }
-    cout << "Finished writing" << endl;
+    chdir("../../");
     return 0;
-
 }
+
+
 
 int PixyCamera::TestInit() {
 
@@ -156,18 +158,12 @@ int PixyCamera::TestExposure() {
 }
 
 Mat PixyCamera::GetOneFrame() {
-
-    unsigned char current_frame[72000]; // ~largest possible given current hardware
+    int return_value;
     unsigned char *pixels;  //returned pointer to video frame buffer
     int32_t response, fourcc;
     int8_t renderflags;
-    int return_value, res;
     uint16_t width, height;
     uint32_t  numPixels;
-
-//  stop blob processing
-    return_value = pixy_command("stop", END_OUT_ARGS, &response, END_IN_ARGS);
-    printf("STOP returned %d response %d\n", return_value, response);
 
     response = 0;
     return_value = pixy_command("cam_getFrame",  // String id for remote procedure
@@ -186,13 +182,60 @@ Mat PixyCamera::GetOneFrame() {
                                 &pixels,        // pointer to mem address for returned frame
                                 0);
 
-    printf("getFrame returned %d response %d\n", return_value, response);
-    printf("returned w %d h %d npix %d\n",width, height,numPixels);
+//    printf("getFrame returned %d response %d\n", return_value, response);
+//    printf("returned w %d h %d npix %d\n",width, height,numPixels);
 
     Mat raw_frame = m_render.renderBA81(renderflags, width, height, numPixels, pixels);
     m_render.renderTimeStamp(raw_frame);
 
     return raw_frame;
+}
 
+double PixyCamera::getFPS() {
+
+    cout << FGRN("testing fps ...") << endl;
+
+    long time_diff;
+    double fps = 0;
+    uint8_t test_frames = 50;
+    milliseconds start = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
+
+    for(long i = 0; i < test_frames; i++) //Show the image captured in the window and repeat
+    {
+        GetOneFrame();
+    }
+
+    milliseconds end = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
+
+    time_diff = end.count() - start.count();
+    fps = test_frames / (time_diff * 1.0 / 1000);
+
+    printf("finish %d frames in %ld seconds, fps: %f \n", test_frames, time_diff, fps);
+
+    return fps;
+}
+
+void PixyCamera::StopRecording() {
+    recording_flag = false;
+    cout << "stopping recording" << endl;
+}
+
+int PixyCamera::writeVideo(VideoWriter outputVideo) {
+
+    for(long i = 0;; i++)
+    {
+        if (!recording_flag) break;
+
+        if (i % 10 == 0) cout << i << " frames outputed" << recording_flag << endl;
+
+        Mat pixy_image = GetOneFrame();
+
+        outputVideo << pixy_image;
+
+    }
+
+    outputVideo.release();
+    cout << "Finished writing" << endl;
+    return 0;
 }
 

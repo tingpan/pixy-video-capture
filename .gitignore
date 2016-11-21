@@ -6,3 +6,5 @@ hello_pixy.cpp
 Makefile
 .idea/
 cmake_install.cmake
+output/
+*.avi

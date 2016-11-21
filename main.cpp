@@ -13,8 +13,6 @@
 
 using namespace std;
 
-
-
 int main() {
 
     PixyCamera p;
@@ -22,7 +20,6 @@ int main() {
     if (p.Test() == 0) {
 
         p.Recording();
-        waitKey(0);
 
     } else {
         cout << "Pixy camera error, exit";
