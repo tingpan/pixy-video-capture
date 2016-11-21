@@ -4,15 +4,9 @@
 #include <string>
 #include <iostream>
 #include "PixyCamera.h"
-#include <math.h>
-#include <ctime>
-#include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
 #include "pixy.h"
-#include <chrono>
 
 using namespace cv;
 using namespace std;
@@ -25,7 +19,6 @@ int PixyCamera::Test() {
 
     cout << "testing Pixy...\n";
 
-    // Connect to Pixy //
     while (t < 3 && return_value == 0) {
 
         switch(t) {
@@ -71,13 +64,44 @@ int PixyCamera::Recording() {
 
     pixy_rcs_set_position(1, 900);
     pixy_rcs_set_position(0, 500);
-
-    Mat pixy_image = GetOneFrame();
-
     namedWindow("Image", WINDOW_NORMAL);
-    imshow("Image", pixy_image);
 
+    VideoWriter outputVideo;                                        // Open the output
+    milliseconds ms = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
+    const String NAME =  "./output/" + to_string(ms.count()) + ".avi";
+    Size S = Size(318, 198);
+
+    outputVideo.open(NAME, CV_FOURCC('D','I','V','X'), 20, S, true);
+
+    if (!outputVideo.isOpened())
+    {
+        cout  << "Could not open the output video for write: ";
+        return -1;
+    }
+
+    cout << "Input frame resolution: Width=" << S.width << "  Height=" << S.height;
+
+    for(;;) //Show the image captured in the window and repeat
+    {
+
+        Mat pixy_image = GetOneFrame();
+
+        //outputVideo.write(res); //save or
+
+        outputVideo << pixy_image;
+
+        imshow("Image", pixy_image);
+
+        if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+        {
+            cout << "esc key is pressed by user" << endl;
+
+            break;
+        }
+    }
+    cout << "Finished writing" << endl;
     return 0;
+
 }
 
 int PixyCamera::TestInit() {
@@ -165,86 +189,10 @@ Mat PixyCamera::GetOneFrame() {
     printf("getFrame returned %d response %d\n", return_value, response);
     printf("returned w %d h %d npix %d\n",width, height,numPixels);
 
-    // quit now if not successful:
-    if(return_value != 0)
-    {
-        // Error initializing Pixy //
-        cout << "pixy exposure error: ";
-        pixy_error(return_value);
-    }
-
-    Mat raw_frame = renderBA81(renderflags, width, height, numPixels, pixels);
-
-    milliseconds ms = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
-    string s = to_string(ms.count());
-
-    putText(raw_frame, s, cvPoint(5,190),
-            FONT_HERSHEY_SIMPLEX, 0.3, cvScalar(255,255,255), 1, CV_AA);
+    Mat raw_frame = m_render.renderBA81(renderflags, width, height, numPixels, pixels);
+    m_render.renderTimeStamp(raw_frame);
 
     return raw_frame;
 
 }
 
-Mat PixyCamera::renderBA81(int8_t renderFlags, uint16_t width, uint16_t height, uint32_t frameLen, uint8_t *frame) {
-
-    uint16_t x, y;
-    uint8_t r, g, b;
-    Mat imageRGB;
-
-    frame += width;
-
-    uchar data[3 * ((height-2) * (width-2)) ];
-
-    uint m = 0;
-    for (y = 1; y < height - 1; y++)
-    {
-        frame++;
-        for (x = 1; x < width - 1; x++, frame++)
-        {
-            interpolateBayer(width, x, y, frame, &r, &g, &b);
-            data[m++] = b;
-            data[m++] = g;
-            data[m++] = r;
-
-        }
-        frame++;
-    }
-
-    imageRGB = Mat(height - 2,width -2, CV_8UC3, data);
-    return imageRGB;
-}
-
-void PixyCamera::interpolateBayer(uint16_t width, uint16_t x, uint16_t y, uint8_t *pixel, uint8_t *r, uint8_t *g,
-                                  uint8_t *b) {
-    if (y&1)
-    {
-        if (x&1)
-        {
-            *r = *pixel;
-            *g = (*(pixel-1)+*(pixel+1)+*(pixel+width)+*(pixel-width))>>2;
-            *b = (*(pixel-width-1)+*(pixel-width+1)+*(pixel+width-1)+*(pixel+width+1))>>2;
-        }
-        else
-        {
-            *r = (*(pixel-1)+*(pixel+1))>>1;
-            *g = *pixel;
-            *b = (*(pixel-width)+*(pixel+width))>>1;
-        }
-    }
-    else
-    {
-        if (x&1)
-        {
-            *r = (*(pixel-width)+*(pixel+width))>>1;
-            *g = *pixel;
-            *b = (*(pixel-1)+*(pixel+1))>>1;
-        }
-        else
-        {
-            *r = (*(pixel-width-1)+*(pixel-width+1)+*(pixel+width-1)+*(pixel+width+1))>>2;
-            *g = (*(pixel-1)+*(pixel+1)+*(pixel+width)+*(pixel-width))>>2;
-            *b = *pixel;
-        }
-    }
-
-}

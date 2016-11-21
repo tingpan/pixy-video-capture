@@ -13,16 +13,10 @@
 
 using namespace std;
 
-void handle_SIGINT(int unused)
-{
-    // On CTRL+C - abort //
 
-    printf("\nBye!\n");
-    exit(0);
-}
 
 int main() {
-    signal(SIGINT, handle_SIGINT);
+
     PixyCamera p;
 
     if (p.Test() == 0) {
