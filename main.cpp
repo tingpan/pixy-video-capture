@@ -10,8 +10,10 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include "PixyCamera.h"
+#include "colors.h"
 
 using namespace std;
+void showMenu();
 
 int main() {
 
@@ -20,12 +22,10 @@ int main() {
     if (p.Test() == 0) {
 
         int input;
-
-        cout << "p : preview the video" << endl;
-        cout << "r : start recording" << endl;
-        cout << "e : exit the program" << endl;
+        showMenu();
 
         while ((input = getchar()) != 'e') {
+
             switch (input) {
                 case 'p':
                     p.Preview();
@@ -34,7 +34,8 @@ int main() {
                     p.Recording();
                     break;
                 default:
-                    cout << "invalid input" << endl;
+                    cout << FRED("invalid input") << endl;
+
             }
         }
 
@@ -43,4 +44,10 @@ int main() {
         cout << "Pixy camera error, exit";
         exit(-1);
     }
+}
+
+void showMenu() {
+    cout << "p : preview the video" << endl;
+    cout << "r : start recording" << endl;
+    cout << "e : exit the program" << endl;
 }

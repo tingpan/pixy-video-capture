@@ -3,6 +3,7 @@
 //
 #include <string>
 #include <iostream>
+#include <chrono>
 #include "PixyCamera.h"
 #include "pixy.h"
 #include <thread>
@@ -225,7 +226,7 @@ int PixyCamera::writeVideo(VideoWriter outputVideo) {
     {
         if (!recording_flag) break;
 
-        if (i % 10 == 0) cout << i << " frames outputed" << recording_flag << endl;
+        if (i % 10 == 0) cout << i << " frames outputed" << endl;
 
         Mat pixy_image = GetOneFrame();
 
@@ -243,7 +244,7 @@ int PixyCamera::Preview() {
 
     for(long i = 0;; i++)
     {
-        if (i % 10 == 0) cout << i << " frames outputed" << recording_flag << endl;
+        if (i % 10 == 0) cout << i << " frames previewed" << endl;
 
         Mat pixy_image = GetOneFrame();
 
