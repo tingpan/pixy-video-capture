@@ -1,0 +1,8 @@
+CMakeCache.txt
+CMakeFiles/
+dump.img
+demo
+hello_pixy.cpp
+Makefile
+.idea/
+cmake_install.cmake
