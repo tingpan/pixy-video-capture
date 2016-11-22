@@ -65,8 +65,7 @@ int PixyCamera::Stop() {
 int PixyCamera::Recording() {
 
     recording_flag = true;
-    pixy_rcs_set_position(1, 900);
-    pixy_rcs_set_position(0, 500);
+
     const String OUTPUT_FOLDER = "./output/";
     const String TIME = currentDateTime();
     const String suffix = ".avi";
