@@ -260,6 +260,5 @@ int PixyCamera::Preview() {
     cout << "Finished Preview" << endl;
     return 0;
 
-
 }
 
