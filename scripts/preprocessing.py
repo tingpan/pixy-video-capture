@@ -116,6 +116,7 @@ if __name__ == '__main__':
         f['data'] = images_train.astype(np.float32)
 
     logger.info('Write test dataset to %s', test_file)
+
     with h5py.File(test_file, 'w') as f:
         f['label'] = labels_test.astype(np.float32)
         f['data'] = images_test.astype(np.float32)
