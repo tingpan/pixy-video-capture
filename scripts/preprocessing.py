@@ -30,7 +30,7 @@ if __name__ == '__main__':
     logger.setLevel(logging.DEBUG)
     sh = logging.StreamHandler()
     sh.setLevel(logging.DEBUG)
-      = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     sh.setFormatter(formatter)
     logger.addHandler(sh)
 
@@ -57,7 +57,9 @@ if __name__ == '__main__':
         scale_h = input_height /float(height)
 
         image = cv2.resize(image, (input_width, input_height))
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        print image.shape
+        print image
+        # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # image = image / 255.0
 
         fimage = image.copy()
@@ -89,7 +91,7 @@ if __name__ == '__main__':
     label_data = label_data.reshape(-1, 26)
 
     image_data = np.array(image_data)
-    image_data = image_data.reshape(-1, 1, input_height, input_width)
+    image_data = image_data.reshape(-1, 3, input_height, input_width)
 
     print label_data.shape
     print image_data.shape

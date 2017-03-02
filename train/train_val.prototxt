@@ -183,7 +183,7 @@ layers {
 }
 
 layers {
-  name: "ip2"
+  name: "ip3"
   type: INNER_PRODUCT
   bottom: "ip1"
   top: "ip2"
