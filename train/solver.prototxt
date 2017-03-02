@@ -17,3 +17,5 @@ max_iter: 450000
 
 snapshot: 10000
 snapshot_prefix: "./snapshot"
+
+solver_mode: GPU
