@@ -11,7 +11,7 @@ layers {
   include: { phase: TRAIN }
 }
 layers {
-  name: "data"
+  name: "test"
   type: HDF5_DATA
   top: "data"
   top: "label"
