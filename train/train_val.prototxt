@@ -230,7 +230,7 @@ layers {
   inner_product_param {
     num_output: 30
     weight_filler {
-    type="xavier"
+    type: "xavier"
     }
     bias_filler {
       type: "constant"
