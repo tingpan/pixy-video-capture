@@ -1,7 +1,7 @@
 name: "pixy_skeleton_model"
 layers {
   name: "data"
-  type: "HDF5Data"
+  type: HDF5_DATA
   top: "data"
   top: "label"
   hdf5_data_param {
@@ -12,7 +12,7 @@ layers {
 }
 layers {
   name: "data"
-  type: "HDF5Data"
+  type: HDF5_DATA
   top: "data"
   top: "label"
   hdf5_data_param {
