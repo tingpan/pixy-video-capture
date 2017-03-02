@@ -8,8 +8,8 @@ import logging
 
 if __name__ == '__main__':
 
-    input_width = 39
-    input_height = 39
+    input_width = 96
+    input_height = 96
     data_size = 422
 
     data_root = sys.argv[1]
@@ -59,7 +59,7 @@ if __name__ == '__main__':
         image = cv2.resize(image, (input_width, input_height))
         print image.shape
         print image
-        # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # image = image / 255.0
 
         fimage = image.copy()
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     label_data = label_data.reshape(-1, 26)
 
     image_data = np.array(image_data)
-    image_data = image_data.reshape(-1, 3, input_height, input_width)
+    image_data = image_data.reshape(-1, 1, input_height, input_width)
 
     print label_data.shape
     print image_data.shape
