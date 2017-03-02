@@ -1,22 +1,22 @@
 name: "pixy_skeleton_model"
 layers {
   name: "data"
-  type: HDF5_DATA
+  type: "HDF5Data"
   top: "data"
   top: "label"
   hdf5_data_param {
-    source: "./data/mnist_test.h5"
+    source: "./data/train.h5"
     batch_size: 64
   }
   include: { phase: TRAIN }
 }
 layers {
   name: "data"
-  type: HDF5_DATA
+  type: "HDF5Data"
   top: "data"
   top: "label"
   hdf5_data_param {
-    source: "./data/mnist_train.h5"
+    source: "./data/test.h5"
     batch_size: 64
   }
   include: { phase: TEST }
