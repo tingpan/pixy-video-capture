@@ -11,7 +11,7 @@ layers {
   include: { phase: TRAIN }
 }
 layers {
-  name: "test"
+  name: "data"
   type: HDF5_DATA
   top: "data"
   top: "label"
@@ -228,7 +228,7 @@ layers {
   bottom: "ip1"
   top: "ip2"
   inner_product_param {
-    num_output: 26
+    num_output: 30
     weight_filler {
     type: "xavier"
     }
