@@ -2,8 +2,8 @@ name: "face_alignment_full_net"
 input: "data"
 input_dim: 1
 input_dim: 1
-input_dim: 151
-input_dim: 95
+input_dim: 39
+input_dim: 39
 layers {
   name: "conv1"
   type: LOCAL

@@ -8,8 +8,8 @@ import logging
 
 if __name__ == '__main__':
 
-    input_width = 151
-    input_height = 95
+    input_width = 39
+    input_height = 39
     data_size = 422
 
     data_root = sys.argv[1]
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     logger.setLevel(logging.DEBUG)
     sh = logging.StreamHandler()
     sh.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+      = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     sh.setFormatter(formatter)
     logger.addHandler(sh)
 
@@ -86,7 +86,13 @@ if __name__ == '__main__':
 
 
     label_data = np.array(label_data)
+    label_data = label_data.reshape(-1, 26)
+
     image_data = np.array(image_data)
+    image_data = image_data.reshape(-1, 1, input_height, input_width)
+
+    print label_data.shape
+    print image_data.shape
 
     index = range(len(label_data))
     np.random.shuffle(index)
