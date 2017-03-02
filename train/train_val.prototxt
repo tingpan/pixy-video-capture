@@ -23,7 +23,7 @@ layers {
 }
 layers {
   name: "conv1"
-  type: LOCAL
+  type: CONVOLUTION
   bottom: "data"
   top: "conv1"
   blobs_lr: 1
@@ -102,7 +102,7 @@ layers {
 
 layers {
   name: "conv3"
-  type: LOCAL
+  type: CONVOLUTION
   bottom: "pool2"
   top: "conv3"
   blobs_lr: 1
@@ -141,7 +141,7 @@ layers {
 
 layers {
   name: "conv4"
-  type: LOCAL
+  type: CONVOLUTION
   bottom: "pool3"
   top: "conv4"
   blobs_lr: 1
