@@ -9,3 +9,4 @@ output/
 *.avi
 demo
 dataset/
+train/data/
