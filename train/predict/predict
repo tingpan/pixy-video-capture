@@ -8,7 +8,7 @@ PRETRAINED = '../model/snapshot_iter_450000'
 # load the model
 caffe.set_mode_gpu()
 caffe.set_device(0)
-net = caffe.Net(MODEL_FILE, PRETRAINED, caffe.TEST)
+net = caffe.Net(MODEL_FILE, 1, weights=PRETRAINED)
 
 print "successfully loaded classifier"
 
