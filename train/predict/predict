@@ -2,7 +2,7 @@ import numpy as np
 import sys
 import caffe
 
-MODEL_FILE = '../model/deploy.prototxt'
+MODEL_FILE = '../deploy.prototxt'
 PRETRAINED = '../model/snapshot_iter_450000'
 
 # load the model
