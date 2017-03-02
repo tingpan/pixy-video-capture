@@ -32,12 +32,12 @@ def read_video(video_file, save_dir):
             initiate(frame)
 
         crop_frame = frame[crop_index[0][1]: crop_index[1][1], crop_index[0][0]: crop_index[1][0]]
-
-        # crop_frame = cv2.resize(crop_frame, (151, 95))
+        crop_frame = cv2.cvtColor(crop_frame, cv2.COLOR_BGR2GRAY)
+        crop_frame = cv2.resize(crop_frame, (96, 96))
 
         cv2.imshow('frame', crop_frame)
 
-        cv2.imwrite('%s/%s.jpg' % (save_dir, i / 5 + 218), crop_frame)
+        cv2.imwrite('%s/%s.jpg' % (save_dir, i / 5 + 487), crop_frame)
         i += 1
 
     cap.release()
@@ -125,11 +125,15 @@ def mouseHandler(event, x, y, flags, frame):
 
 
 if __name__ == '__main__':
+    # TODO add user input to adjust height and width for output
+
     video_file = sys.argv[1]
 
     video_path = os.path.abspath(os.path.join(os.path.dirname(video_file), ".."))
 
-    if not os.path.exists('%s/crop_output' % video_path):
-        os.mkdir('%s/crop_output' % video_path)
+    output_path = os.path.join(video_path, "crop_output_test")
 
-    read_video(video_file, '%s/crop_output' % video_path)
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
+
+    read_video(video_file, output_path)

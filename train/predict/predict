@@ -1,0 +1,22 @@
+import numpy as np
+import sys
+import caffe
+
+MODEL_FILE = '../model/deploy.prototxt'
+PRETRAINED = '../model/snapshot_iter_450000'
+
+# load the model
+caffe.set_mode_gpu()
+caffe.set_device(0)
+net = caffe.Classifier(MODEL_FILE, PRETRAINED)
+
+print "successfully loaded classifier"
+
+# test on a image
+IMAGE_FILE = '../test/0.jpg'
+input_image = caffe.io.load_image(IMAGE_FILE)
+# predict takes any number of images,
+# and formats them for the Caffe net automatically
+pred = net.predict([input_image])
+
+print pred
