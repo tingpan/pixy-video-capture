@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-# import caffe
+import caffe
 import os
 
 MODEL_FILE = os.path.abspath('../deploy.prototxt')
