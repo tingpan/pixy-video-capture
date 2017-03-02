@@ -22,17 +22,6 @@ layers {
   include: { phase: TEST }
 }
 layers {
-  name: "data"
-  type: HDF5_DATA
-  top: "data"
-  top: "label"
-  hdf5_data_param {
-    source: "test.txt"
-    batch_size: 100
-  }
-  include: { phase: TEST }
-}
-layers {
   name: "conv1"
   type: CONVOLUTION
   bottom: "data"
