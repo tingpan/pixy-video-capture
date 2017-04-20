@@ -539,7 +539,7 @@ layer {
 #########################################################
 layer {
   name: "loss_fusion"
-  type: "EUCLIDEAN_LOSS"
+  type: "EuclideanLoss"
   bottom: "my_conv5_fusion"
   bottom: "label"
   top: "loss_fusion"
