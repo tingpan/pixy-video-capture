@@ -1,4 +1,4 @@
-name: "pixy_skeleton_model"
+name: "SimpleNet"
 
 layers {
   name: "data"

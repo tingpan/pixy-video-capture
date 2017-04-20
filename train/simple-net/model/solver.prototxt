@@ -5,7 +5,7 @@ test_iter: 100
 test_interval: 1000
 
 # The base learning rate, momentum and the weight decay of the network.
-base_lr: 0.0001
+base_lr: 0.00001
 momentum: 0.9
 weight_decay: 0.0005
 
@@ -22,7 +22,7 @@ max_iter: 1000000
 
 # snapshot intermediate results
 snapshot: 5000
-snapshot_prefix: "./snapshots/cpm_train"
+snapshot_prefix: "./snapshots/simple_train"
 
 # solver mode: CPU or GPU
 solver_mode: GPU

@@ -1,1 +1,1 @@
-./data/pixy_test.h5
+../data/h5df/pixy_train.h5
