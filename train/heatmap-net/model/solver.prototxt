@@ -4,13 +4,11 @@ net: "./model/train_val.prototxt"
 test_iter: 100
 test_interval: 1000
 
-# learning rate and decay, start with 0.0001, drop by 0.1 every 5000 iteration
-base_lr: 0.0001
-lr_policy: "step"
+base_lr: 0.00000001
+lr_policy: "fixed"
 gamma: 0.1
-momentum: 0.9
+momentum: 0.95
 weight_decay: 0.0005
-stepsize: 100000
 
 max_iter: 1000000
 snapshot_prefix: "./snapshots/heatmap_train"
