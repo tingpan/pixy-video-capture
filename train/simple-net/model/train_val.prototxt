@@ -200,8 +200,8 @@ layers {
 layers {
   name: "relu4"
   type: RELU
-  bottom: "ip1"
-  top: "ip1"
+  bottom: "ip1_2"
+  top: "ip1_2"
 }
 layers {
   name: "drop1"
@@ -231,8 +231,8 @@ layers {
 layers {
   name: "relu22"
   type: RELU
-  bottom: "ip2"
-  top: "ip2"
+  bottom: "ip2_2"
+  top: "ip2_2"
 }
 layers {
   name: "loss"
