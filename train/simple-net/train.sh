@@ -19,7 +19,7 @@ mkdir -p $snap_dir
 
 if [ "$snap_iter" != "" ] &&  [ "$snap_iter" != "-1" ];
     then snap_str="-snapshot $snap_dir/${snapfile}_iter_$snap_iter.solverstate";
-    else snap_str="-weights $pre_dir/cnn-heatmap.caffemodel";
+    else snap_str="-weights $pre_dir/simplenet.caffemodel";
 fi
 
 $caffe_path/build/tools/caffe train $snap_str \
