@@ -206,8 +206,8 @@ layers {
 layers {
   name: "drop1"
   type: DROPOUT
-  bottom: "ip1"
-  top: "ip1"
+  bottom: "ip1_2"
+  top: "ip1_2"
   dropout_param {
     dropout_ratio: 0.5
   }
