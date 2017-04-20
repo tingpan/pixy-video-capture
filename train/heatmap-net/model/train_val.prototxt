@@ -10,7 +10,7 @@ layer {
   heatmap_data_param {
     source: "../data/heatmap/training_set.txt"
     root_img_dir: "/home/psytp1/pixy-video-capture/train/data/heatmap/"
-    batchsize: 1
+    batchsize: 20
     cropsize: 198
     outsize: 256
     sample_per_cluster: false
@@ -34,7 +34,7 @@ layer {
   heatmap_data_param {
     source: "../data/heatmap/validation_set.txt"
     root_img_dir: "/home/psytp1/pixy-video-capture/train/data/heatmap/"
-    batchsize: 1
+    batchsize: 4
     cropsize: 198
     outsize: 256
     sample_per_cluster: false
@@ -539,8 +539,11 @@ layer {
 #########################################################
 layer {
   name: "loss_fusion"
-  type: "EuclideanLoss"
+  type: "EuclideanLossHeatmap"
   bottom: "my_conv5_fusion"
   bottom: "label"
+  bottom: "data"
   top: "loss_fusion"
+  visualise: false
+  loss_weight: 3
 }
