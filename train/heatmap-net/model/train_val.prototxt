@@ -10,7 +10,7 @@ layer {
   heatmap_data_param {
     source: "../data/heatmap/training_set.txt"
     root_img_dir: "/home/psytp1/pixy-video-capture/train/data/heatmap/"
-    batchsize: 14
+    batchsize: 1
     cropsize: 198
     outsize: 256
     sample_per_cluster: false
