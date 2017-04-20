@@ -10,6 +10,11 @@ output/
 demo
 dataset/
 train/data/
+train/cpm-net/pre_trained/
+train/heatmap-net/pre_trained/
+train/vgg-net/pre_trained/
+train/simple-net/pre_trained/
+
 train/test/
 train/model/
 train2
