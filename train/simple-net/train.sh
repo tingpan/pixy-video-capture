@@ -20,5 +20,5 @@ if [ "$snap_iter" != "" ] &&  [ "$snap_iter" != "-1" ];
     else snap_str="-weights $pre_dir/cnn-heatmap.caffemodel";
 fi
 
-$caffe_path/build/tools/caffe train $snap_str \
+$caffe_path/build/tools/caffe train \
 -gpu $gpu_id -solver models/solver.prototxt 2>&1 | tee -a $snap_dir/train_0.log
