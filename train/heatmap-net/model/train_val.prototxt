@@ -8,8 +8,8 @@ layer {
   visualise: false   
   include: { phase: TRAIN }   
   heatmap_data_param {
-    //todo source: "/data/tp/flic/train_shuffle.txt"
-    //todo root_img_dir: "/mnt/ramdisk/tp/flic/"
+    source: "../data/heatmap/training_set.txt"
+    root_img_dir: "../data/heatmap/"
     batchsize: 14
     cropsize: 198
     outsize: 256
@@ -32,8 +32,8 @@ layer {
   visualise: false    
   include: { phase: TEST }
   heatmap_data_param {
-    //todo source: "/data/tp/flic/test_shuffle.txt"
-    //todo root_img_dir: "/mnt/ramdisk/tp/flic/"
+    source: "../data/heatmap/validation_set.txt"
+    root_img_dir: "../data/heatmap/"
     batchsize: 1
     cropsize: 198
     outsize: 256
@@ -305,10 +305,10 @@ layer {
 }
 #########################################################
 layer {
-  name: "conv8"
+  name: "my_conv8"
   type: "Convolution"
   bottom: "conv7"
-  top: "conv8"
+  top: "my_conv8"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -318,7 +318,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 7
+    num_output: 13
     kernel_size: 1
     weight_filler {
       type: "gaussian"
@@ -332,8 +332,8 @@ layer {
 layer {
   name: "relu8"
   type: "ReLU"
-  bottom: "conv8"
-  top: "conv8"
+  bottom: "my_conv8"
+  top: "my_conv8"
 }
 
 
@@ -344,26 +344,13 @@ layer {
 layer {
   name: "loss_heatmap"
   type: "EuclideanLossHeatmap"
-  bottom: "conv8"
+  bottom: "my_conv8"
   bottom: "label"
   bottom: "data"  
   top: "loss_heatmap"  
   visualise: false
   loss_weight: 1  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #########################################################
