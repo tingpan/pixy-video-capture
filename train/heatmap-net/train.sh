@@ -21,4 +21,4 @@ if [ "$snap_iter" != "" ] &&  [ "$snap_iter" != "-1" ];
 fi
 
 $caffe_path/build/tools/caffe train $snap_str \
--gpu $gpu_id -solver models/solver.prototxt 2>&1 | tee -a $snap_dir/train_0.log
+-gpu $gpu_id -solver model/solver.prototxt 2>&1 | tee -a $snap_dir/train_0.log
