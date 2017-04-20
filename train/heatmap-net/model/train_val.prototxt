@@ -539,11 +539,8 @@ layer {
 #########################################################
 layer {
   name: "loss_fusion"
-  type: "EuclideanLossHeatmap"
+  type: "EUCLIDEAN_LOSS"
   bottom: "my_conv5_fusion"
   bottom: "label"
-  bottom: "data"  
   top: "loss_fusion"
-  visualise: false
-  loss_weight: 3
 }
