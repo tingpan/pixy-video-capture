@@ -6,7 +6,7 @@ layers {
   top: "data"
   top: "label"
   hdf5_data_param {
-    source: "./train_data.txt"
+    source: "./model/train_data.txt"
     batch_size: 64
   }
   include: { phase: TRAIN }
@@ -17,8 +17,8 @@ layers {
   top: "data"
   top: "label"
   hdf5_data_param {
-    source: "./test_data.txt"
-    batch_size: 10
+    source: "./model/test_data.txt"
+    batch_size: 4
   }
   include: { phase: TEST }
 }
