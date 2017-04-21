@@ -551,7 +551,7 @@ layer {
 ##########################################################
 layer {
   name: "accuracy"
-  type: ACCURACY
+  type: "Accuracy"
   bottom: "my_conv5_fusion"
   bottom: "label"
   bottom: "data"
