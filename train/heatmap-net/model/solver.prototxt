@@ -1,7 +1,7 @@
 net: "./model/train_val.prototxt"
 
 # test setting
-test_iter: 100
+test_iter: 400
 test_interval: 1000
 
 base_lr: 0.000001
