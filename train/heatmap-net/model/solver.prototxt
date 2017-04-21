@@ -4,7 +4,7 @@ net: "./model/train_val.prototxt"
 test_iter: 400
 test_interval: 1000
 
-base_lr: 0.000001
+base_lr: 0.0000001
 momentum: 0.95
 weight_decay: 0.0005
 
