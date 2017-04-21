@@ -8,8 +8,8 @@ layer {
   visualise: false   
   include: { phase: TRAIN }   
   heatmap_data_param {
-    source: "../data/heatmap/training_set.txt"
-    root_img_dir: "../data/heatmap/"
+    source: "../data/heatmap2/training_set.txt"
+    root_img_dir: "../data/heatmap2/"
     batchsize: 14
     cropsize: 198
     outsize: 256
@@ -21,7 +21,7 @@ layer {
     flip_joint_labels: true
     dont_flip_first: true
     angle_max: 40    
-    multfact: 1  # set to 282 if using preprocessed data from website
+    multfact: 198  # set to 282 if using preprocessed data from website
   }
 }
 layer {
@@ -32,8 +32,8 @@ layer {
   visualise: false    
   include: { phase: TEST }
   heatmap_data_param {
-    source: "../data/heatmap/validation_set.txt"
-    root_img_dir: "../data/heatmap/"
+    source: "../data/heatmap2/test_set.txt"
+    root_img_dir: "../data/heatmap2/"
     batchsize: 4
     cropsize: 198
     outsize: 256
@@ -44,7 +44,7 @@ layer {
     segmentation: false
     dont_flip_first: true
     angle_max: 0
-    multfact: 1  # set to 282 if using preprocessed data from website
+    multfact: 198  # set to 282 if using preprocessed data from website
   }
 }
 
