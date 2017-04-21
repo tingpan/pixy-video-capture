@@ -12,11 +12,11 @@ layer {
     root_img_dir: "../data/heatmap2/"
     batchsize: 14
     cropsize: 198
-    outsize: 256
+    outsize: 200
     sample_per_cluster: false
     random_crop: true
-    label_width: 64
-    label_height: 64
+    label_width: 50
+    label_height: 50
     segmentation: false
     flip_joint_labels: true
     dont_flip_first: true
@@ -36,11 +36,11 @@ layer {
     root_img_dir: "../data/heatmap2/"
     batchsize: 10
     cropsize: 198
-    outsize: 256
+    outsize: 200
     sample_per_cluster: false
     random_crop: false
-    label_width: 64
-    label_height: 64  
+    label_width: 50
+    label_height: 50
     segmentation: false
     dont_flip_first: true
     angle_max: 0
