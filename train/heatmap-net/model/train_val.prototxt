@@ -554,6 +554,5 @@ layer {
   type: "Accuracy"
   bottom: "my_conv5_fusion"
   bottom: "label"
-  bottom: "data"
   top: "accuracy"
 }
