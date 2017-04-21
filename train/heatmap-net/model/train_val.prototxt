@@ -547,3 +547,13 @@ layer {
   visualise: false
   loss_weight: 3
 }
+
+##########################################################
+layer {
+  name: "accuracy
+  type: ACCURACY
+  bottom: "my_conv5_fusion"
+  bottom: "label"
+  bottom: "data"
+  top: "accuracy"
+}
