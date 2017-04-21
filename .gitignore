@@ -12,6 +12,8 @@ dataset/
 train/data/
 train/cpm-net/pre_trained/
 train/heatmap-net/pre_trained/
+train/heatmap-net/log/
+train/heatmap-net/snapshots/
 train/vgg-net/pre_trained/
 train/simple-net/pre_trained/
 

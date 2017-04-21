@@ -34,7 +34,7 @@ layer {
   heatmap_data_param {
     source: "../data/heatmap2/test_set.txt"
     root_img_dir: "../data/heatmap2/"
-    batchsize: 10
+    batchsize: 9
     cropsize: 198
     outsize: 200
     sample_per_cluster: false
