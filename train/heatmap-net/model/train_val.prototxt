@@ -8,7 +8,7 @@ layer {
   visualise: false   
   include: { phase: TRAIN }   
   heatmap_data_param {
-    source: "../data/heatmap2/training_set.txt"
+    source: "../data/heatmap2/train_set.txt"
     root_img_dir: "../data/heatmap2/"
     batchsize: 14
     cropsize: 198
