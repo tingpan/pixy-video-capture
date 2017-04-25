@@ -321,7 +321,7 @@ layers {
 layers {
   name: "loss"
   type: EUCLIDEAN_LOSS
-  bottom: "predict"
+  bottom: "fc8"
   bottom: "label"
   top: "loss"
 }
