@@ -19,8 +19,8 @@ mkdir -p $snap_dir
 
 if [ "$snap_iter" != "" ] &&  [ "$snap_iter" != "-1" ];
     then snap_str="-snapshot $snap_dir/${snapfile}_iter_$snap_iter.solverstate";
-    else snap_str="-weights $pre_dir/simplenet.caffemodel";
+    else snap_str="-weights $pre_dir/bvlc_alexnet.caffemodel.caffemodel";
 fi
 
-$caffe_path/build/tools/caffe train \
+$caffe_path/build/tools/caffe train $snap_str \
 -gpu $gpu_id -solver model/solver.prototxt 2>&1 | tee -a $log_dir/train_`date +%Y-%m-%d-%H-%M-%S`.log
