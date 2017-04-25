@@ -307,7 +307,7 @@ layers {
   weight_decay: 1
   weight_decay: 0
   inner_product_param {
-    num_output: 14
+    num_output: 26
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -317,12 +317,6 @@ layers {
       value: 0
     }
   }
-}
-layers {
-  name: "sigmoid8"
-  type: SIGMOID
-  bottom: "fc8"
-  top: "predict"
 }
 layers {
   name: "loss"
